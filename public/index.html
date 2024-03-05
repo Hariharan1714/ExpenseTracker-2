@@ -5,11 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker - Sign Up</title>
+    <title>Expense Tracker - Home</title>
 </head>
 <body>
-    <h1>Expense Tracker - Sign Up</h1>
-    <form action="/signup" method="POST">
+    <h1>Welcome to Expense Tracker</h1>
+    
+     <form action="/signup" method="POST">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" required><br>
         <label for="email">Email:</label><br>
@@ -18,5 +19,32 @@
         <input type="password" id="password" name="password" required><br><br>
         <input type="submit" value="Sign Up">
     </form>
+    
+    <div id="expenseForm" style="display: none;">
+        <h2>Add Expense</h2>
+        <form id="expenseForm">
+            <label for="amount">Amount:</label><br>
+            <input type="number" id="amount" name="amount" required><br>
+            <label for="description">Description:</label><br>
+            <input type="text" id="description" name="description" required><br>
+            <label for="category">Category:</label><br>
+            <select id="category" name="category" required>
+                <option value="Food">Food</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Salary">Salary</option>
+                <!-- Add other categories here -->
+            </select><br><br>
+            <input type="submit" value="Add Expense">
+        </form>
+    </div>
+
+    <div id="expensesList">
+        <!-- Display expenses fetched from backend here -->
+    </div>
+
+    <script>
+        // Your login logic and fetch expenses logic here
+    </script>
 </body>
 </html>
+
