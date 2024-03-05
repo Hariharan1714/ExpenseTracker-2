@@ -26,6 +26,29 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Login route
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // Find user by email
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    // Check if password is correct
+    if (user.password !== password) {
+      return res.status(401).send('Invalid password');
+    }
+
+    // Successful login
+    res.send('Login successful!');
+  } catch (error) {
+    console.error('Error logging in:', error);
+    res.status(500).send('Error logging in');
+  }
+});
+
 app.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
   try {
