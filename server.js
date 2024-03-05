@@ -26,6 +26,8 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+
+
 // Login route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -37,17 +39,21 @@ app.post('/login', async (req, res) => {
     }
 
     // Check if password is correct
-    if (user.password !== password) {
-      return res.status(401).send('Invalid password');
+    const passwordMatch = await user.comparePassword(password);
+    if (!passwordMatch) {
+      return res.status(401).send('User not authorized');
     }
 
     // Successful login
-    res.send('Login successful!');
+    res.send('User login successful!');
   } catch (error) {
     console.error('Error logging in:', error);
     res.status(500).send('Error logging in');
   }
 });
+
+
+
 
 app.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
