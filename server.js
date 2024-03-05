@@ -73,6 +73,32 @@ app.post('/signup', async (req, res) => {
   }
 });
 
+const Expense = require('./models/Expense');
+
+// Add Expense route
+app.post('/add-expense', async (req, res) => {
+  const { amount, description, category } = req.body;
+  try {
+    const newExpense = await Expense.create({ amount, description, category });
+    res.status(201).send('Expense added successfully!');
+  } catch (error) {
+    console.error('Error adding expense:', error);
+    res.status(500).send('Error adding expense');
+  }
+});
+
+// Fetch Expenses route
+app.get('/expenses', async (req, res) => {
+  try {
+    const expenses = await Expense.findAll();
+    res.json(expenses);
+  } catch (error) {
+    console.error('Error fetching expenses:', error);
+    res.status(500).send('Error fetching expenses');
+  }
+});
+
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
